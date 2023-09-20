@@ -1,0 +1,34 @@
+version: '3'
+
+services: 
+  apache-compose:
+    build:
+      context: ./apache
+      dockerfile: Dockerfile
+    ports:
+      - 8082:80
+    networks:
+      - reddocker
+
+  apache2-compose:
+    build:
+      context: ./apache2
+      dockerfile: Dockerfile
+    ports:
+      - 8081:80
+    networks:
+      - reddocker
+      
+  nginx-compose:
+    image: nginx
+    ports:
+      - 8088:80
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - reddocker
+
+networks:
+  reddocker:
+    external:
+      name: reddocker
